@@ -1,0 +1,3 @@
+PreTest
+Task: Sketch a 3D model, which will be shown after this window closed.
+Time limit: 5 minutes

@@ -1,0 +1,5 @@
+FreeCAD ITS is an intelligent tutoring system, which is going to help you to learn three boolean operations: union, intersect and substract under the FreeCAD environment.
+The program consists of three portions, pre-test, training and post-test. 
+During pre-test, you need to skectch a 3D model. If you cannot finish it, it's okay because during training, you will learn up to three different methods to sketch the 3D model in pre-test.
+During post-test, you need to use two different methods that you learned from training to sketch the 3D model. You will also need to sketch a new 3D model.
+You will need 25 minutes to finish the whole program.
