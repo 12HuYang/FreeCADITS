@@ -5,4 +5,4 @@ An Intelligent Tutoring system for Boolean Operations on FreeCAD, the purpose of
 How to use the files ? 
 
 1) Make a folder under the path of your FreeCAD/Mod/
-2) Copy all files under it, then run FreeCAD, you should see "I.T.S" in workbanch.
+2) Copy all files under the folder, then run FreeCAD, you should see "I.T.S" in workbanch.
