@@ -29,14 +29,10 @@ correctnum = []
 completetrain = 0
 log = []
 Board = []
-
 uniontime=2
 commontime=1
 cuttime=1
 
-uniontime_2=1
-commontime_2=2
-cuttime_2=1
 
 class Cy_x:
     def Activated(self):
@@ -244,9 +240,8 @@ class Union:
             existitem.remove(basename)
             existitem.remove(toolname)
             log.append(['Union', basename, toolname])
-            global uniontime,uniontime_2
+            global uniontime
             uniontime-=1
-            uniontime_2-=1
             # FreeCAD.Console.PrintMessage(existitem)
             if tutor.win == False and len(begin.begin) == 2:
                 Action = tutor.Board[len(tutor.Board) - 1]
@@ -328,9 +323,8 @@ class Intersect:
             existitem.remove(basename)
             existitem.remove(toolname)
             log.append(['Intersect', basename, toolname])
-            global commontime,commontime_2
+            global commontime
             commontime-=1
-            commontime_2-=1
             if tutor.win == False and len(begin.begin) == 2:
                 Action = tutor.Board[len(tutor.Board) - 1]
                 tutor.Suggestions(Action)
@@ -404,9 +398,8 @@ class Substract:
             existitem.remove(basename)
             existitem.remove(toolname)
             log.append(['Subtract', basename, toolname])
-            global cuttime,cuttime_2
+            global cuttime
             cuttime-=1
-            cuttime_2-=1
             if tutor.win == False and len(begin.begin) == 2:
                 Action = tutor.Board[len(tutor.Board) - 1]
                 tutor.Suggestions(Action)
@@ -460,13 +453,10 @@ class Restart:
                 # FreeCAD.Console.PrintMessage(tutor.Board)
                 tutor.Board = []
                 # FreeCAD.Console.PrintMessage(tutor.Board)
-            global uniontime,commontime,cuttime,uniontime_2,commontime_2,cuttime_2
+            global uniontime,commontime,cuttime
             uniontime=2
             commontime=1
             cuttime=1
-            uniontime_2=1
-            commontime_2=2
-            cuttime_2=1
 
     def activate(self):
         numitem = len(useditems)
@@ -489,13 +479,6 @@ class Restart:
             # FreeCAD.Console.PrintMessage(tutor.Board)
             tutor.Board = []
             # FreeCAD.Console.PrintMessage(tutor.Board)
-        global uniontime,commontime,cuttime,uniontime_2,commontime_2,cuttime_2
-        uniontime=2
-        commontime=1
-        cuttime=1
-        uniontime_2=1
-        commontime_2=2
-        cuttime_2=1
 
     def GetResources(self):
         return {'Pixmap': './Mod/ITS_test00/restart.png', 'MenuText': 'Restart', 'ToolTip': 'Restart'}
@@ -533,17 +516,14 @@ class GoBack:
                 tutor.step -= 1
                 correctnum.pop()
             if lastitem=="Fusion1" or lastitem=="Fusion2":
-                global uniontime,uniontime_2
+                global uniontime
                 uniontime+=1
-                uniontime_2+=1
             if lastitem=="Cut":
-                global cuttime,cuttime_2
+                global cuttime
                 cuttime+=1
-                cuttime_2+=1
             if lastitem=="Common":
-                global commontime,commontime_2
+                global commontime
                 commontime+=1
-                commontime_2+=1
             App.getDocument(docname).removeObject(lastitem)
 
 
@@ -557,7 +537,7 @@ class GoBack:
         else:
             return True
 
-
+'''
 class ViewObserver:
     def logPosition(self, info):
         left = (info["Button"] == "BUTTON1")
@@ -565,19 +545,9 @@ class ViewObserver:
         if left:
             info = v.getObjectInfo(pos)
             if info:
-                #sel=FreeCADGui.Selection.getSelection()
-                #FreeCAD.Console.PrintMessage(sel)
-                FreeCAD.Console.PrintMessage("Object Selected: ")
+                FreeCAD.Console.PrintMessage("\n Object Selected: ")
                 FreeCAD.Console.PrintWarning(str(info["Object"]))
-                FreeCAD.Console.PrintMessage("\n")
-                #if sel:
-                FreeCADGui.Selection.clearSelection()
-                #
-                #FreeCADGui.Selection.clearSelection()
-                #sel=FreeCADGui.Selection.getSelection()
-                #FreeCAD.Console.PrintMessage(str(sel))
-
-
+            '''
 
 class Tutor:
     def __init__(self):
@@ -1000,33 +970,9 @@ class Dialog(QtGui.QDialog):
             self.toolitemname = item
             # QtGui.QMessageBox.warning(None, "", self.toolitemname)
 
-class EventFilter(QtGui.QMainWindow):
-    def eventFilter(self,o,e):
-        if e.type()==QtCore.QEvent.ShortcutOverride: #and e.modifiers()==QtCore.Qt.ControlModifier and e.key()==QtCore.Qt.Key_Z:
-            if e.key()==QtCore.Qt.Key_Delete:
-                FreeCADGui.Selection.clearSelection()
-                QtGui.QMessageBox.warning(None,"",'Shortcut delete is not valid. Please ask resercher for help.')
-                return True
-            else:
-                QtGui.QMessageBox.warning(None,"",'Shoutcut is not valid. Please ask resercher for help.')
-                return True
-        #if e.type()==QtCore.QEvent.MouseButtonPress and e.button()==QtCore.Qt.MouseButton.RightButton:
-            #App.Console.PrintMessage('Rightbutton pressed.')
-            #QtGui.QMessageBox.warning(None,"",'Rightbutton is not valid here.')
-            #App.Console.PrintMessage(str(o.objectName()))
-            #e.consume()
-            #return True
-        else:
-            return False
 
-
-mw = FreeCADGui.getMainWindow()
-#views=mw.findChildren(QtGui.QMainWindow)
-ef=EventFilter()
-mw.installEventFilter(ef)
-#o=ViewObserver()
-#c=v.addEventCallback("SoMouseButtonEvent",o.logPosition)
-
+#o = ViewObserver()
+#c = v.addEventCallback("SoMouseButtonEvent", o.logPosition)
 
 f = file('./Mod/ITS_test00/old_model.txt', 'rb')
 Tree = cPickle.load(f)

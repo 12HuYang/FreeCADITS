@@ -22,6 +22,7 @@ testlogs = []
 # timesup=0
 extratest = 0
 
+
 class Start_pretest:
     def Activated(self):
         self.click = True
@@ -54,7 +55,6 @@ class Start_pretest:
         pretest.ui = myWedget_Ui.myWidget_Ui()
         pretest.ui.pretest(pretest)
         mw.addDockWidget(QtCore.Qt.RightDockWidgetArea, pretest)
-
         '''
         digitclock=QtGui.QDockWidget("clock")
         digitclock.ui=clockwidget()
